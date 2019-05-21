@@ -25,6 +25,19 @@
             android:textSize="24sp"
             android:inputType="number"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter Max Guesses: "
+            android:textSize="24sp"/>
+
+        <EditText
+            android:id="@+id/enter_max_guesses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:inputType="number"/>
+
         <Button
             android:id="@+id/submit_age"
             android:layout_width="wrap_content"

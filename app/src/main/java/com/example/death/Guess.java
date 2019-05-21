@@ -14,12 +14,13 @@ import android.widget.Toast;
 
 public class Guess extends AppCompatActivity {
     private Integer age;
+    private Integer guessesLeft = -1;
     private Integer lastGuess = -1;
     private Integer sliderGuess;
     private Integer orientation;
     private TextView showGuess;
     private Float RED[] = {0.0f, 0.8470f, 0.7176f};
-    private Float GREEN[] = {122.436f, 0.5657f, 0.6863f};
+    private Float GREEN[] = {122.4f, 0.566f, 0.686f};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +29,11 @@ public class Guess extends AppCompatActivity {
 
         Intent intent = getIntent();
         this.age = intent.getIntExtra("age", -1);
+        this.guessesLeft = intent.getIntExtra("maxGuesses", -1);
 
         if(savedInstanceState != null) {
             this.lastGuess = savedInstanceState.getInt("lastGuess", -1);
+            this.guessesLeft = savedInstanceState.getInt("guessesLeft", -1);
         }
 
         this.orientation = this.getResources().getConfiguration().orientation;
@@ -62,9 +65,13 @@ public class Guess extends AppCompatActivity {
             }
         }
 
-        if(this.lastGuess != -1) {
-            TextView showGuessTemp = (TextView) findViewById(R.id.temp);
-            showGuessTemp.setText("Last guess = " + this.lastGuess.toString());
+        if(this.lastGuess != -1 && this.guessesLeft != -1) {
+            TextView showGuessTemp = (TextView) findViewById(R.id.last_guess_tv);
+            showGuessTemp.setText("Last Guess: " + this.lastGuess.toString());
+
+            TextView displayGuesses = (TextView) findViewById(R.id.guesses_left_tv);
+            displayGuesses.setText("Guesses Left: " + this.guessesLeft.toString());
+
             setBackgroundColor(this.lastGuess);
         }
 
@@ -93,13 +100,18 @@ public class Guess extends AppCompatActivity {
                     guess = sliderGuess;
                 }
 
-                if(guess >= 0 && guess <= 100) {
-                    setBackgroundColor(guess);
-                    TextView showGuess = (TextView) findViewById(R.id.temp);
-                    showGuess.setText("Last Guess: " + guess.toString());
-                    lastGuess = guess;
+                if(guessesLeft > 0) {
+                    if (guess >= 0 && guess <= 100) {
+                        setBackgroundColor(guess);
+                        TextView showGuess = (TextView) findViewById(R.id.last_guess_tv);
+                        showGuess.setText("Last Guess: " + guess.toString());
+                        lastGuess = guess;
+                        guess();
+                    } else {
+                        properValues.show();
+                    }
                 } else {
-                    properValues.show();
+                    Toast.makeText(getApplicationContext(), "You ran out of guesses :(", Toast.LENGTH_SHORT);
                 }
             }
         });
@@ -109,12 +121,14 @@ public class Guess extends AppCompatActivity {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("lastGuess", this.lastGuess);
+        outState.putInt("guessesLeft", this.guessesLeft);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         this.lastGuess = savedInstanceState.getInt("lastGuess", -1);
+        this.guessesLeft = savedInstanceState.getInt("guessesLeft", -1);
     }
 
     /*
@@ -137,4 +151,15 @@ public class Guess extends AppCompatActivity {
         guessView.setBackgroundColor(colorRGB);
     }
 
+    private void guess() {
+        if(this.lastGuess == this.age) {
+            Toast.makeText(getApplicationContext(), "You Won!", Toast.LENGTH_LONG).show();
+            finish();
+        } else if(--this.guessesLeft <= 0) {
+            Toast.makeText(getApplicationContext(), "You lost.", Toast.LENGTH_LONG).show();
+            finish();
+        }
+        TextView displayGuesses = (TextView) findViewById(R.id.guesses_left_tv);
+        displayGuesses.setText("Guesses Left: " + this.guessesLeft.toString());
+    }
 }

@@ -15,23 +15,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button submitButton = (Button) findViewById(R.id.submit_age);
+        final Button submitButton = (Button) findViewById(R.id.submit_age);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText ageInput = (EditText) findViewById(R.id.enter_age);
                 String ageString = ageInput.getText().toString();
-                Toast properValues = Toast.makeText(getApplicationContext(), "Enter Proper, Positive, Integral Values between 0 and 100", Toast.LENGTH_SHORT);
 
-                if(ageString.equals("")) {
+                EditText maxGuessInput = (EditText) findViewById(R.id.enter_max_guesses);
+                String maxGuessString = maxGuessInput.getText().toString();
+
+                Toast properValues = Toast.makeText(getApplicationContext(), "Enter Proper, Positive, Integral Values", Toast.LENGTH_SHORT);
+
+                if(ageString.equals("") || maxGuessString.equals("")) {
                     properValues.show();
                 } else {
                     Integer age = Integer.parseInt(ageString);
-                    if(!(age > 0 && age < 100)) {
+                    Integer maxGuesses = Integer.parseInt(maxGuessString);
+                    if(!(age > 0 && age < 100 && maxGuesses > 0)) {
                         properValues.show();
                     } else {
                         Intent submitGuess = new Intent(getApplicationContext(), Guess.class);
                         submitGuess.putExtra("age", age);
+                        submitGuess.putExtra("maxGuesses", maxGuesses);
                         startActivity(submitGuess);
                     }
                 }
