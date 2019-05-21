@@ -154,9 +154,15 @@ public class Guess extends AppCompatActivity {
     private void guess() {
         if(this.lastGuess == this.age) {
             Toast.makeText(getApplicationContext(), "You Won!", Toast.LENGTH_LONG).show();
+            Intent result = new Intent();
+            result.putExtra("result", 1);
+            setResult(RESULT_OK, result);
             finish();
         } else if(--this.guessesLeft <= 0) {
             Toast.makeText(getApplicationContext(), "You lost.", Toast.LENGTH_LONG).show();
+            Intent result = new Intent();
+            result.putExtra("result", 0);
+            setResult(RESULT_OK, result);
             finish();
         }
         TextView displayGuesses = (TextView) findViewById(R.id.guesses_left_tv);
