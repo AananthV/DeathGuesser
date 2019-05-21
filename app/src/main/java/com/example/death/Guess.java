@@ -164,6 +164,12 @@ public class Guess extends AppCompatActivity {
             result.putExtra("result", 0);
             setResult(RESULT_OK, result);
             finish();
+        } else if(this.lastGuess < this.age) {
+            Toast.makeText(getApplicationContext(), "Try something higher.", Toast.LENGTH_SHORT).show();
+
+        } else if(this.lastGuess > this.age) {
+            Toast.makeText(getApplicationContext(), "Try something lower.", Toast.LENGTH_SHORT).show();
+
         }
         TextView displayGuesses = (TextView) findViewById(R.id.guesses_left_tv);
         displayGuesses.setText("Guesses Left: " + this.guessesLeft.toString());
