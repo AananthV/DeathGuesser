@@ -17,7 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Guess"></activity>
+        <activity android:name=".Guess"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>

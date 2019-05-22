@@ -2,11 +2,13 @@ package com.example.death;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
     private SharedPreferences mPreferences;
     private String sharedPrefFile = "com.example.death.gamesSharedPrefs";
+    private int colorSet = 0; // 0 - Not Set, 1 - RED, 2 -  GREEN
+    private float RED[] = {0.0f, 0.8470f, 0.7176f};
+    private float GREEN[] = {122.4f, 0.566f, 0.686f};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.wins = this.mPreferences.getInt("wins", 0);
         this.games = this.mPreferences.getInt("games", 0);
+        this.colorSet = this.mPreferences.getInt("colorSet", 0);
         this.displayWins();
 
         final Button submitButton = (Button) findViewById(R.id.submit_age);
@@ -64,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 wins = 0;
                 games = 0;
+                colorSet = 0;
                 displayWins();
             }
         });
@@ -75,8 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
             if(resultCode == RESULT_OK) {
-                this.wins += data.getIntExtra("result", 0);
+                int result = data.getIntExtra("result", 0);
+                this.wins += result;
                 this.games += 1;
+                this.colorSet = result + 1;
                 this.displayWins();
             }
         }
@@ -89,13 +98,22 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor preferencesEditor = mPreferences.edit();
         preferencesEditor.putInt("wins", this.wins);
         preferencesEditor.putInt("games", this.games);
+        preferencesEditor.putInt("colorSet", this.colorSet);
         preferencesEditor.apply();
     }
 
     private void displayWins() {
         TextView winsTV = (TextView) findViewById(R.id.wins_tv);
         TextView lossesTV = (TextView) findViewById(R.id.losses_tv);
-        winsTV.setText("Wins: " + this.wins);
-        lossesTV.setText("Losses: " + (this.games - this.wins));
+        winsTV.setText("" + this.wins);
+        lossesTV.setText("" + (this.games - this.wins));
+
+        if(this.colorSet == 1) {
+            findViewById(R.id.main_view).setBackgroundColor(Color.HSVToColor(this.RED));
+        } else if(this.colorSet == 2) {
+            findViewById(R.id.main_view).setBackgroundColor(Color.HSVToColor(this.GREEN));
+        } else {
+            findViewById(R.id.main_view).setBackgroundColor(Color.parseColor("#303030"));
+        }
     }
 }
