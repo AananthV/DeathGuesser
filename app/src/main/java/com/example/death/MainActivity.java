@@ -1,6 +1,7 @@
 package com.example.death;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,14 +13,21 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
-    private Integer wins = 0;
-    private Integer games = 0;
+    private int wins = 0;
+    private int games = 0;
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+    private SharedPreferences mPreferences;
+    private String sharedPrefFile = "com.example.death.gamesSharedPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.mPreferences = getSharedPreferences(this.sharedPrefFile, MODE_PRIVATE);
+
+        this.wins = this.mPreferences.getInt("wins", 0);
+        this.games = this.mPreferences.getInt("games", 0);
+        this.displayWins();
 
         final Button submitButton = (Button) findViewById(R.id.submit_age);
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +57,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        final Button resetButton = (Button) findViewById(R.id.reset_wins);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wins = 0;
+                games = 0;
+                displayWins();
+            }
+        });
     }
 
     @Override
@@ -62,6 +80,16 @@ public class MainActivity extends AppCompatActivity {
                 this.displayWins();
             }
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+        preferencesEditor.putInt("wins", this.wins);
+        preferencesEditor.putInt("games", this.games);
+        preferencesEditor.apply();
     }
 
     private void displayWins() {

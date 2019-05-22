@@ -13,14 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Guess extends AppCompatActivity {
-    private Integer age;
-    private Integer guessesLeft = -1;
-    private Integer lastGuess = -1;
-    private Integer sliderGuess;
-    private Integer orientation;
+    private int age = 0;
+    private int guessesLeft = -1;
+    private int lastGuess = -1;
+    private int sliderGuess = 0;
+    private int orientation = 1;
     private TextView showGuess;
-    private Float RED[] = {0.0f, 0.8470f, 0.7176f};
-    private Float GREEN[] = {122.4f, 0.566f, 0.686f};
+    private float RED[] = {0.0f, 0.8470f, 0.7176f};
+    private float GREEN[] = {122.4f, 0.566f, 0.686f};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class Guess extends AppCompatActivity {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     sliderGuess = progress;
-                    showGuess.setText(sliderGuess.toString());
+                    showGuess.setText(String.valueOf(sliderGuess));
                 }
 
                 @Override
@@ -67,10 +67,10 @@ public class Guess extends AppCompatActivity {
 
         if(this.lastGuess != -1 && this.guessesLeft != -1) {
             TextView showGuessTemp = (TextView) findViewById(R.id.last_guess_tv);
-            showGuessTemp.setText("Last Guess: " + this.lastGuess.toString());
+            showGuessTemp.setText("Last Guess: " + this.lastGuess);
 
             TextView displayGuesses = (TextView) findViewById(R.id.guesses_left_tv);
-            displayGuesses.setText("Guesses Left: " + this.guessesLeft.toString());
+            displayGuesses.setText("Guesses Left: " + this.guessesLeft);
 
             setBackgroundColor(this.lastGuess);
         }
@@ -81,7 +81,7 @@ public class Guess extends AppCompatActivity {
             public void onClick(View v) {
                 Toast properValues = Toast.makeText(getApplicationContext(), "Enter Proper, Positive, Integral Values between 0 and 100", Toast.LENGTH_SHORT);
 
-                Integer guess = -1;
+                int guess = -1;
 
                 // Portrait
                 if(orientation == 1){
@@ -104,7 +104,7 @@ public class Guess extends AppCompatActivity {
                     if (guess >= 0 && guess <= 100) {
                         setBackgroundColor(guess);
                         TextView showGuess = (TextView) findViewById(R.id.last_guess_tv);
-                        showGuess.setText("Last Guess: " + guess.toString());
+                        showGuess.setText("Last Guess: " + guess);
                         lastGuess = guess;
                         guess();
                     } else {
@@ -136,19 +136,16 @@ public class Guess extends AppCompatActivity {
             Sets the Background Color based on the relative closeness of a guess.
             Uses Linear Interpolation to find the gradient color.
      */
-    private void setBackgroundColor(Integer guess) {
+    private void setBackgroundColor(int guess) {
         ScrollView guessView = (ScrollView) findViewById(R.id.guess_view);
-
-        Float guessError =  1f*Math.abs(guess - this.age)/(Math.max(100-this.age, this.age));
+        float guessError =  1f*Math.abs(guess - this.age)/(Math.max(100-this.age, this.age));
 
         float color[] = new float[3];
-        for(Integer i = 0; i < 3; i++) {
+        for(int i = 0; i < 3; i++) {
             color[i] = this.RED[i] + (this.GREEN[i] - this.RED[i]) * (1 - guessError);
         }
 
-        Integer colorRGB = Color.HSVToColor(color);
-
-        guessView.setBackgroundColor(colorRGB);
+        guessView.setBackgroundColor(Color.HSVToColor(color));
     }
 
     private void guess() {
@@ -172,6 +169,6 @@ public class Guess extends AppCompatActivity {
 
         }
         TextView displayGuesses = (TextView) findViewById(R.id.guesses_left_tv);
-        displayGuesses.setText("Guesses Left: " + this.guessesLeft.toString());
+        displayGuesses.setText("Guesses Left: " + this.guessesLeft);
     }
 }

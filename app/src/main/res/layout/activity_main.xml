@@ -53,7 +53,7 @@
 
             <TextView
                 android:id="@+id/wins_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
@@ -62,7 +62,7 @@
 
             <TextView
                 android:id="@+id/losses_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
@@ -70,6 +70,15 @@
                 android:text="Losses: 0" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/reset_wins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="16sp"
+            android:text="Reset" />
+
 
     </LinearLayout>
 
