@@ -6,24 +6,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/guess_view"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:paddingHorizontal="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:padding="8dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="24sp"
-            android:text="Enter your guess!"/>
+            android:layout_marginBottom="8dp"
+            android:text="Enter your guess!" />
 
         <EditText
             android:id="@+id/guess_age_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:layout_marginBottom="16dp"
             android:textSize="24sp"
             android:inputType="number"/>
 
@@ -31,34 +36,28 @@
             android:id="@+id/submit_guess"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_gravity="center_horizontal"
             android:textSize="16sp"
             android:text="Submit"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/last_guess_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center_horizontal"
                 android:textSize="24sp"
-                android:text="Last Guess: " />
+                android:text="Last Guess: None" />
 
             <TextView
                 android:id="@+id/guesses_left_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
                 android:textSize="24sp"
                 android:text="Guesses Left: " />
-
-        </LinearLayout>
 
     </LinearLayout>
 

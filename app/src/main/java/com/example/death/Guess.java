@@ -65,14 +65,16 @@ public class Guess extends AppCompatActivity {
             }
         }
 
-        if(this.lastGuess != -1 && this.guessesLeft != -1) {
+        if(this.lastGuess != -1) {
             TextView showGuessTemp = (TextView) findViewById(R.id.last_guess_tv);
             showGuessTemp.setText("Last Guess: " + this.lastGuess);
 
+            setBackgroundColor(this.lastGuess);
+        }
+
+        if(this.guessesLeft != -1) {
             TextView displayGuesses = (TextView) findViewById(R.id.guesses_left_tv);
             displayGuesses.setText("Guesses Left: " + this.guessesLeft);
-
-            setBackgroundColor(this.lastGuess);
         }
 
         Button submitButton = (Button) findViewById(R.id.submit_guess);

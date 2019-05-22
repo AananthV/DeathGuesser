@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Integer age = Integer.parseInt(ageString);
                     Integer maxGuesses = Integer.parseInt(maxGuessString);
-                    if(!(age > 0 && age < 100 && maxGuesses > 0)) {
+                    if(!(age >= 0 && age <= 100 && maxGuesses > 0)) {
                         properValues.show();
                     } else {
                         Intent submitGuess = new Intent(getApplicationContext(), Guess.class);

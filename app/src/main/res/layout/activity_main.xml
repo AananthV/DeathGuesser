@@ -4,17 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:paddingHorizontal="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:padding="8dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="Enter Age to Guess: "
             android:textSize="24sp"/>
 
@@ -22,12 +25,16 @@
             android:id="@+id/enter_age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:paddingHorizontal="8dp"
             android:textSize="24sp"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:hint="0 - 100" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="Enter Max Guesses: "
             android:textSize="24sp"/>
 
@@ -35,13 +42,17 @@
             android:id="@+id/enter_max_guesses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:paddingHorizontal="8dp"
             android:textSize="24sp"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:hint="1 - Infinity"/>
 
         <Button
             android:id="@+id/submit_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_gravity="center_horizontal"
             android:textSize="16sp"
             android:text="Submit"/>
@@ -49,6 +60,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:orientation="horizontal">
 
             <TextView
