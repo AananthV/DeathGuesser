@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameActivity"
+    android:paddingHorizontal="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:background="@drawable/transparent_rounded_rect">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Enter Age to Guess: "
+            android:textSize="24sp"/>
+
+        <EditText
+            android:id="@+id/enter_age"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="8dp"
+            android:textSize="24sp"
+            android:inputType="number"
+            android:hint="0 - 100"
+            android:background="@drawable/text_field_bg" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Enter Max Guesses: "
+            android:textSize="24sp"/>
+
+        <EditText
+            android:id="@+id/enter_max_guesses"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="8dp"
+            android:textSize="24sp"
+            android:inputType="number"
+            android:hint="1 - Infinity"
+            android:background="@drawable/text_field_bg"/>
+
+        <Button
+            android:id="@+id/submit_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center_horizontal"
+            android:textSize="16sp"
+            android:text="Submit"
+            android:background="@drawable/button_bg"
+            android:textColor="@drawable/button_text"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/darker_rounded_rect">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="24sp"
+                    android:text="Wins" />
+
+                <TextView
+                    android:id="@+id/wins_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="48sp"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:text="0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="24sp"
+                    android:text="Losses" />
+
+                <TextView
+                    android:id="@+id/losses_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="48sp"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:text="0" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/reset_wins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:textSize="16sp"
+            android:text="Reset"
+            android:background="@drawable/button_bg"
+            android:textColor="@drawable/button_text"/>
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="16sp"
+            android:text="Back"
+            android:background="@drawable/button_bg"
+            android:textColor="@drawable/button_text"/>
+
+    </LinearLayout>
+
+</ScrollView>
