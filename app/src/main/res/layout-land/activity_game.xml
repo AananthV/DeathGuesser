@@ -53,13 +53,24 @@
                 android:id="@+id/enter_max_guesses"
                 android:layout_width="match_parent"
                 android:layout_height="40sp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="8dp"
                 android:paddingHorizontal="8dp"
                 android:gravity="center_vertical"
                 android:textSize="24sp"
                 android:inputType="number"
                 android:hint="1 - Infinity"
                 android:background="@drawable/text_field_bg"/>
+
+             <CheckBox
+                 android:id="@+id/binarySearch"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:textSize="24sp"
+                 android:text="Use Binary Search Instead"
+                 android:padding="8dp"
+                 android:gravity="center"
+                 android:textColor="@android:color/secondary_text_dark"
+                 android:layout_marginBottom="16dp"/>
 
             <Button
                 android:id="@+id/submit_age"

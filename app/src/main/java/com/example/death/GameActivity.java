@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,27 +37,40 @@ public class GameActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int age = -1, maxGuesses = -1;
                 EditText ageInput = (EditText) findViewById(R.id.enter_age);
                 String ageString = ageInput.getText().toString();
 
                 EditText maxGuessInput = (EditText) findViewById(R.id.enter_max_guesses);
                 String maxGuessString = maxGuessInput.getText().toString();
 
+                CheckBox useBinarySearch = (CheckBox) findViewById(R.id.binarySearch);
+
                 Toast properValues = Toast.makeText(getApplicationContext(), "Enter Proper, Positive, Integral Values", Toast.LENGTH_SHORT);
 
-                if(ageString.equals("") || maxGuessString.equals("")) {
+                if(ageString.equals("")) {
                     properValues.show();
                 } else {
-                    Integer age = Integer.parseInt(ageString);
-                    Integer maxGuesses = Integer.parseInt(maxGuessString);
-                    if(!(age >= 0 && age <= 100 && maxGuesses > 0)) {
+                    age = Integer.parseInt(ageString);
+                    if(!(age >= 0 && age <= 100)) {
                         properValues.show();
                     } else {
-                        Intent submitGuess = new Intent(getApplicationContext(), Guess.class);
-                        submitGuess.putExtra("age", age);
-                        submitGuess.putExtra("maxGuesses", maxGuesses);
-                        startActivityForResult(submitGuess, SECOND_ACTIVITY_REQUEST_CODE);
+                        if(useBinarySearch.isChecked()) {
+                            maxGuesses = findOptimalGuesses(age);
+                        } else {
+                            if(maxGuessString.equals("")) {
+                                properValues.show();
+                            } else {
+                                maxGuesses = Integer.parseInt(maxGuessString);
+                            }
+                        }
                     }
+                }
+                if(age > 0 && maxGuesses > 0) {
+                    Intent submitGuess = new Intent(getApplicationContext(), Guess.class);
+                    submitGuess.putExtra("age", age);
+                    submitGuess.putExtra("maxGuesses", maxGuesses);
+                    startActivityForResult(submitGuess, SECOND_ACTIVITY_REQUEST_CODE);
                 }
             }
         });
@@ -120,5 +134,22 @@ public class GameActivity extends AppCompatActivity {
         } else {
             findViewById(R.id.main_view).setBackgroundColor(Color.parseColor("#303030"));
         }
+    }
+
+    /*
+        Uses binary search to find optimal number of guesses
+     */
+    private int findOptimalGuesses(int guess) {
+        int min = 0, max = 100, current = 50, guesses = 1;
+        while(current != guess) {
+            if(current < guess) {
+                min = current;
+            } else {
+                max = current;
+            }
+            current = (min+max)/2;
+            guesses++;
+        }
+        return guesses;
     }
 }
